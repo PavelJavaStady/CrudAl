@@ -11,7 +11,7 @@ import java.util.List;
 public class PersonDAO {
     private static int PEOPLE_COUNT;
 
-    private static final String URL = "jdbc:mysql://localhost:3306/first_db";
+    private static final String URL = "jdbc:mysql://localhost:3306/people";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "pasha1989";
 
@@ -71,7 +71,7 @@ public class PersonDAO {
 
     public void save(Person person) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Person VALUES (1,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Person (`name`, `age`, `email`) VALUES (?,?,?)");
             preparedStatement.setString(1, person.getName());
             preparedStatement.setInt(2, person.getAge());
             preparedStatement.setString(3, person.getEmail());
@@ -90,7 +90,6 @@ public class PersonDAO {
             preparedStatement.setInt(2, updatePerson.getAge());
             preparedStatement.setString(3, updatePerson.getEmail());
             preparedStatement.setInt(4, id);
-
             preparedStatement.executeUpdate();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
